@@ -1,7 +1,5 @@
 import requests
-from clint.arguments import Args
 from clint.textui import puts, colored, indent
-args = Args()
 from pyfiglet import Figlet
 f = Figlet(font='slant')
 class NewsApi:
@@ -9,7 +7,7 @@ class NewsApi:
         self.name = name
     def source(self, source):
         url =  "https://newsapi.org/v2/top-headlines?sources="+ source +"&apiKey=3ce9580385ea4c42a97d1e59537c2f00"
-        print(colored.yellow(f.renderText(source)))
+        print(colored.yellow(f.renderText(source) + "\tTop 10 headlines"))
         response = requests.get(url)
         json_object = response.json()
         articles = json_object['articles']
@@ -21,7 +19,9 @@ class NewsApi:
             z = str(articles[headline]['description'])
             pub = str(articles[headline]['publishedAt'])
             q = str(articles[headline]['url'])
-            print(colored.yellow("Source:")+ sos + colored.green("\n Title: ")+ y +colored.red("\n Author: ")+ x + colored.blue("\n Description: ") + z + colored.green("\n Url: ")+ q + colored.red("\n Published At: ") + pub)
+            print(colored.yellow("Source:")+ sos + colored.green("\n Title: ")+ y +colored.red("\n Author: ")
+            + x + colored.blue("\n Description: ") + z + colored.green("\nFor more information, click the link below:\n Url: ")+ q + colored.red("\n Published At: ")
+             + pub)
             print("\n")
             headline+=1    
     def home(self):
